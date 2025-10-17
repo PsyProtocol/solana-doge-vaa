@@ -26,10 +26,29 @@ A VAA-P2SH address is a standard P2SH address, but its `redeemScript` looks like
 
 ```
 // VAA Header (unspendable opcodes to embed data in the script hash)
-<emitter_chain> <emitter_contract> OP_2DROP <sub_address_seed> OP_DROP
+// push the VAA emitter_chain (u16) to the stack, for solana this is 1
+<EMITTER_CHAIN>
+// push the emitter contract (32-bytes) to the stack
+<EMITTER_CONTRACT>
+// drop the VAA emitter_chain and solana emitter_contract address from the stack
+OP_2DROP
+// push 32 byte VAA "sub_address_seed" to the stack
+// this allows a single contract on solana/eth to control multiple dogecoin wallet addresses
+<SUB_ADDRESS_SEED>
+// drop the sub_address_seed from the stack
+OP_DROP
 
-// Standard P2PKH Check
-OP_DUP OP_HASH160 <guardian_tss_pubkey_hash> OP_EQUALVERIFY OP_CHECKSIG
+// === the rest is the standard p2pkh script ===
+// clone the public key on the stack
+OP_DUP
+// hash the public key - PUSH ripemd160(sha256(<secp256k1public>))
+OP_HASH160
+// push the known hash of the public key to the stack, aka the wallet address
+<WORMHOLE_SECP256K1_PUBLIC_KEY>
+// ensure the hash of the public key on the stack == the wallet address
+OP_EQUALVERIFY
+// ensure the SIGHASH is signed with the public key on the stack
+OP_CHECKSIG
 ```
 
 When Wormhole Guardians sign a transaction to spend funds from such an address, the signature hash they sign is calculated over a preimage that includes this `redeemScript`. This means their signature is a cryptographic proof that they are acting on an instruction from the specific `emitter_contract` encoded in the address.
