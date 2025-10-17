@@ -35,7 +35,7 @@ OP_DUP OP_HASH160 <guardian_tss_pubkey_hash> OP_EQUALVERIFY OP_CHECKSIG
 When Wormhole Guardians sign a transaction to spend funds from such an address, the signature hash they sign is calculated over a preimage that includes this `redeemScript`. This means their signature is a cryptographic proof that they are acting on an instruction from the specific `emitter_contract` encoded in the address.
 
 <p align="center" width="100%">
-    <a href="https://psy.xyz"><img width="50%" src="images/explainer.png"></a>
+    <img width="50%" src="images/explainer.png">
 </p>
 
 For a deep dive into the cryptographic guarantees and mechanics, please see [Protocol.md](Protocol.md).
