@@ -1,8 +1,13 @@
+
+<p align="center" width="100%">
+    <a href="https://psy.xyz"><img width="90%" src="images/collab-logo.png"></a>
+</p>
+
 # Psy x Wormhole: VAA-P2SH Dogecoin Bridge
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the official Rust implementation of the **VAA Validated Transaction Pay-to-Script-Hash (VAA-P2SH)** protocol, a groundbreaking collaboration between [Psy Protocol](https://psy.xyz) and [Wormhole](https://wormhole.com/) to bridge Dogecoin to the Solana ecosystem.
+This repository contains the official Rust implementation of the **VAA Pay-to-Script-Hash (VAA-P2SH)** protocol, a collaboration between [Psy Protocol](https://psy.xyz), [Wormhole](https://wormhole.com/) and [Solana](https://solana.com/) to bridge Dogecoin to the Solana ecosystem.
 
 This library provides the core logic for Wormhole Guardians to securely manage Dogecoin funds on behalf of smart contracts on other chains, using a novel, trust-minimized, and highly scalable approach.
 
@@ -29,7 +34,14 @@ OP_DUP OP_HASH160 <guardian_tss_pubkey_hash> OP_EQUALVERIFY OP_CHECKSIG
 
 When Wormhole Guardians sign a transaction to spend funds from such an address, the signature hash they sign is calculated over a preimage that includes this `redeemScript`. This means their signature is a cryptographic proof that they are acting on an instruction from the specific `emitter_contract` encoded in the address.
 
+<p align="center" width="100%">
+    <a href="https://psy.xyz"><img width="50%" src="images/explainer.png"></a>
+</p>
+
 For a deep dive into the cryptographic guarantees and mechanics, please see [Protocol.md](Protocol.md).
+
+
+
 
 ## Codebase Structure
 
